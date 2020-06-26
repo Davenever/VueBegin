@@ -76,7 +76,7 @@ export default {};
   width: 100%;
   height: 100%;
   background: url("../assets/back.jpg") no-repeat;
-  background-size: 100% auto; //指定背景大小
+  background-size: 100% auto;
 }
 
 .loginFrame {
