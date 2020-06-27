@@ -1,6 +1,13 @@
 <template>
   <div class="main">
-    <div class="loginFrame">
+    <!--<div class="loginFrame">-->
+    <el-form
+      label-width="0px"
+      ref="loginFormRef"
+      :model="loginFrom"
+      :rules="loginFromRules"
+      class="loginFrame"
+    >
       <p class="loginTitle">Login</p>
       <div class="user">
         <label>
@@ -28,7 +35,15 @@
             </svg>
           </span>
           <span>用户名</span>
-          <input maxlength="16" placeholder="   UserName" type="text" />
+          <!--<input maxlength="16" placeholder="   UserName" type="text" />-->
+          <el-form-item prop="username">
+            <input
+              maxlength="16"
+              placeholder="   UserName"
+              type="text"
+              v-model="loginFrom.username"
+            />
+          </el-form-item>
         </label>
       </div>
       <div class="password">
@@ -57,18 +72,68 @@
             </svg>
           </span>
           <span>密码</span>
-          <input maxlength="16" placeholder="   Password" type="password" />
+          <!--<input maxlength="16" placeholder="   Password" type="password" />-->
+          <el-form-item prop="password">
+            <input
+              maxlength="16"
+              placeholder="   Password"
+              type="password"
+              v-model="loginFrom.password"
+            />
+          </el-form-item>
         </label>
       </div>
       <div class="enterBut">
-        <span>登入</span>
+        <span @click="login">登入</span>
       </div>
-    </div>
+    </el-form>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      //这是登录表单的数据绑定对象
+      loginFrom: {
+        username: "admin",
+        password: "123456"
+      },
+      //这是表单的验证规则对象
+      loginFromRules: {
+        //验证用户名是否合法
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 10, message: "长度在 3 到 10个字符", trigger: "blur" }
+        ],
+        //验证密码是否合法
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { min: 6, max: 15, message: "长度在 6 到 15个字符", trigger: "blur" }
+        ]
+      }
+    };
+  },
+  methods: {
+    login() {
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return;
+        /*const { data: res } = await this.$http.post(
+          "api/private/v1/login",
+          this.loginFrom
+        );
+        console.log(res);
+        if (res.meta.status !== 200) return this.$message.error("登录失败");*/
+        this.$message({
+          message: "登陆成功",
+          type: "success"
+        });
+        //跳转
+        this.$router.push("/home");
+      });
+    }
+  }
+};
 </script>
 
 <style lang="less" scoped>
@@ -114,9 +179,9 @@ export default {};
   cursor: pointer;
 }
 
-.loginFrame > div input {
+.loginFrame div input {
   width: 100%;
-  height: 30px;
+  height: 50px;
   background: transparent;
   border: none;
   border-bottom: 1px solid white;
@@ -134,6 +199,10 @@ export default {};
   box-sizing: border-box;
   font-size: 20px;
   cursor: pointer;
+}
+.enterBut span {
+  width: 100%;
+  height: 100%;
 }
 
 .loginFrame .enterBut:hover {
