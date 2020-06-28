@@ -1,10 +1,11 @@
 <template>
   <el-container>
-    <el-aside width="200px" id="aside">
+    <el-aside :width="isCollapse?'64px':'200px'" id="aside">
       <div class="adminInfo">江北的Admin Pro</div>
       <div>
         <el-row class="tac">
           <el-col :span="12">
+            <!-- collapse：水平折叠收起菜单 -->
             <el-menu
               default-active="1-1"
               class="el-menu-vertical-demo"
@@ -13,6 +14,7 @@
               background-color="#20222A"
               text-color="#fff"
               active-text-color="#409EFF"
+              :collapse="isCollapse"
             >
               <el-submenu index="1">
                 <template slot="title">
@@ -60,8 +62,8 @@
           text-color="#fff"
           active-text-color="#409EFF"
         >
-          <el-menu-item index="1">
-            <i class="el-icon-s-fold"></i>
+          <el-menu-item id="indexOne" index="1">
+            <i class="el-icon-s-fold" @click="fold"></i>
           </el-menu-item>
           <el-submenu index="2">
             <template slot="title">我的工作台</template>
@@ -95,7 +97,8 @@ export default {
     return {
       activeIndex: "1",
       activeIndex2: "1",
-      MenuList: []
+      MenuList: [],
+      isCollapse: true
     };
   },
   methods: {
@@ -110,6 +113,9 @@ export default {
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    fold() {
+      this.isCollapse = !this.isCollapse;
     }
   }
 };
@@ -139,11 +145,20 @@ export default {
 .tac {
   height: 100%;
 }
-.el-menu-vertical-demo {
+// .el-menu-vertical-demo {
+//   width: 200px;
+// }
+.el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
+  min-height: 400px;
 }
+
 .el-menu {
   //这个是去除打开下拉时,宽度超出的问题
   border-right: none;
+}
+#indexOne {
+  text-align: center;
+  width: 80px;
 }
 </style>
