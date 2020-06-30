@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside :width="isCollapse?'64px':'200px'" id="aside">
+    <el-aside :width="isCollapse?'64px':'220px'" id="aside">
       <div class="adminInfo"> 
         <!-- <img src="../assets/pic/Doraemon.jpg" alt /> -->
         <span>江北的Admin Pro</span></div> 
@@ -226,7 +226,7 @@ export default {
 //   width: 200px;
 // }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
+  width: 220px;
   min-height: 400px;
 }
 
