@@ -25,8 +25,7 @@
                   <span>商品管理</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1">
-                    <i class="el-icon-menu"></i><span>选项1</span></el-menu-item>
+                  <el-menu-item index="/commodity"><i class="el-icon-menu" ></i><span>商品列表</span></el-menu-item>
                   <el-menu-item index="1-2"><i class="el-icon-menu"></i><span>选项2</span></el-menu-item>
                 </el-menu-item-group>
                   <el-menu-item index="1-3"><i class="el-icon-menu"></i><span>选项3</span></el-menu-item>
@@ -158,7 +157,10 @@
           <el-button type="primary" @click="loginOut" class="right_content_btn">退出</el-button>
         </el-menu>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main> 
+        <!--路由占位符  显示子组件-->
+        <router-view></router-view>
+        </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
   </el-container>
